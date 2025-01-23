@@ -9,7 +9,7 @@ async function handleRequest(req: Request) {
 	const hash = url.pathname.slice(1)
 
 	if (!hash) {
-		return new Response('Hash not provided', { status: 400 })
+			return Response.redirect(SUBSCAN_URL, 302)
 	}
 
 	const rpcResponse = await fetch(ETH_RPC_URL, {
