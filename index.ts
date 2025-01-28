@@ -6,7 +6,7 @@ const SUBSCAN_URL = process.env.SUBSCAN_URL ?? 'https://assethub-westend.subscan
 
 async function handleRequest(req: Request) {
 	const url = new URL(req.url)
-	const hash = url.pathname.slice(1)
+	const hash = url.pathname.slice('/tx/'.length)
 
 	if (!hash) {
 			return Response.redirect(SUBSCAN_URL, 302)
@@ -28,7 +28,7 @@ async function handleRequest(req: Request) {
 	const json = await rpcResponse.json()
 
 	if (!json.result) {
-		return new Response('Transaction not found', { status: 404 })
+		return new Response(`Transaction ${hash} not found`, { status: 404 })
 	}
 
 	const blockNumber = json.result.blockNumber
